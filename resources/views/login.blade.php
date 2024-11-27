@@ -6,129 +6,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+        * {
             margin: 0;
             padding: 0;
+            font-family: "Roboto", sans-serif;
+        }
+
+        body {
+            background-image: url(https://img.freepik.com/fotos-gratis/renderizacao-3d-de-fundo-de-textura-hexagonal_23-2150796421.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .conteiner {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            width: 100%;
+            margin-top: 140px;
+        }
+
+        .card {
+            background-color: #ffffffc4;
+            padding: 30px;
+            box-shadow: 0px 10px 13px -7px #262626;
+            width: 400px;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            margin-bottom: 20px;
+            color: #0f3540;
         }
 
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 300px;
+        .label-float input {
             width: 100%;
+            padding: 5px;
+            display: inline-block;
+            border: 0;
+            border-bottom: 2px solid #0f3540;
+            background-color: transparent;
+            outline: none;
+            min-width: 180px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-out;
+            border-radius: 0;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
+        .label-float {
+            position: relative;
+            padding-top: 13px;
+            margin-top: 5%;
+            margin-bottom: 5%;
         }
 
-        input[type="email"],
-        input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .label-float input:focus {
+            border-bottom: 2px solid #8a897b;
+        }
+
+        .label-float label {
+            color: #0f3540;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-top: 13px;
+            transition: all 0.3s ease-out;
+        }
+
+        .label-float input:focus+label,
+        .label-float input:valid+label {
+            font-size: 11px;
+            margin-top: 0;
+            color: #8a897b;
         }
 
         button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
+            background-color: transparent;
+            color: #0f3540;
+            font-weight: bold;
+            padding: 9px;
+            border-radius: 20px;
+            width: 60%;
             cursor: pointer;
+            margin-top: 20px;
+            border: 2px solid #0f3540;
+            outline: none;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #0f3540;
+            color: #fff;
+            transition: all 0.3s ease-out;
+        }
+
+        .justify-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hr {
+            display: flex;
+            justify-content: center;
+        }
+
+        hr {
+            margin: 10% 0;
+            width: 70%;
         }
 
         p {
+            font-size: 23px;
+            color: #0f3540;
+            font-size: 11px;
             text-align: center;
-            margin-top: 15px;
-            color: #555;
         }
 
-        p a {
-            color: #007bff;
+        a {
+            font-size: 13px;
+            color: #0e172a;
+            font-weight: bold;
             text-decoration: none;
         }
 
-        p a:hover {
-            text-decoration: underline;
+        a:hover {
+            color: #8a897b;
+            transition: all 0.3s ease-out;
         }
 
-        .message {
+        .fa-eye {
+            position: absolute;
+            top: 13px;
+            right: 10px;
+            cursor: pointer;
+            color: #0f3540;
+        }
+
+        #msgError {
             text-align: center;
-            margin-bottom: 15px;
+            color: #ff0000;
+            background-color: #ffbbbb;
             padding: 10px;
-            border-radius: 4px;
-        }
-
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            margin-top: 10px;
-        }
-
-        ul {
-            padding-left: 20px;
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <div>
-        <h1>Login</h1>
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <label>Email:</label>
-            <input type="email" name="email" required>
-            <label>Senha:</label>
-            <input type="password" name="password" required>
-            <button type="submit">Login</button>
-            <div>
-                @if (session('success'))
-                    <div class="message success">{{ session('success') }}</div>
-                @endif
-                @if ($errors->any())
-                    <div class="message error">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="message error">{{ session('error') }}</div>
-                @endif
-
-            </div>
-        </form>
-        <p>Não tem uma conta? <a href="{{ route('register.form') }}">Cadastre-se</a></p>
+    <div class="conteiner">
+        <div class="card">
+            <h1>Login</h1>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="label-float">
+                    <input type="email" name="email" required>
+                    <label for="email">Email:</label>
+                </div>
+                <div class="label-float">
+                    <input type="password" name="password" required>
+                    <label for="password">Senha:</label>
+                </div>
+                <button type="submit">Login</button>
+                <div>
+                    @if (session('success'))
+                        <div class="message success">{{ session('success') }}</div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="message error">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="message error">{{ session('error') }}</div>
+                    @endif
+                </div>
+            </form>
+            <p>Não tem uma conta? <a href="{{ route('register.form') }}">Cadastre-se</a></p>
+        </div>
     </div>
 
     <script>
