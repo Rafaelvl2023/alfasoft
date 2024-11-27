@@ -84,6 +84,13 @@
             color: #8a897b;
         }
 
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
         button {
             background-color: transparent;
             color: #0f3540;
@@ -169,7 +176,9 @@
                     <input type="password" name="password" required>
                     <label for="password">Senha:</label>
                 </div>
-                <button type="submit">Login</button>
+                <div class="button">
+                    <button type="submit">Login</button>
+                </div>
                 <div>
                     @if (session('success'))
                         <div class="message success">{{ session('success') }}</div>

@@ -84,6 +84,13 @@
             color: #8a897b;
         }
 
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
         button {
             background-color: transparent;
             color: #0f3540;
@@ -173,7 +180,9 @@
                     <input type="password" name="password_confirmation" required>
                     <label for="password_confirmation">Confirme a Senha:</label>
                 </div>
-                <button type="submit">Cadastrar</button>
+                <div class="button">
+                    <button type="submit">Cadastrar</button>
+                </div>
 
                 <div>
                     @if ($errors->any())
