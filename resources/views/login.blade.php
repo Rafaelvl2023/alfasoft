@@ -122,21 +122,25 @@
                         </ul>
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="message error">{{ session('error') }}</div>
+                @endif
+
             </div>
         </form>
         <p>Não tem uma conta? <a href="{{ route('register.form') }}">Cadastre-se</a></p>
     </div>
 
     <script>
-        window.addEventListener('DOMContentLoaded', function () {
+        window.addEventListener('DOMContentLoaded', function() {
             const messages = document.querySelectorAll('.message');
 
-            messages.forEach(function (message) {
-                setTimeout(function () {
+            messages.forEach(function(message) {
+                setTimeout(function() {
                     message.style.transition = 'opacity 1s ease-out';
                     message.style.opacity = '0';
 
-                    setTimeout(function () {
+                    setTimeout(function() {
                         message.remove();
                     }, 1000);
                 }, 5000);

@@ -11,7 +11,11 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('login');
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
+        return view('login')->with('error', 'Você não está logado.');
     }
 
     public function login(Request $request)
@@ -22,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate();
+            $request->session()->regenerate(); // Regenera a sessão
             return redirect()->intended('/dashboard')->with('success', 'Login realizado com sucesso!');
         }
 
@@ -53,7 +57,6 @@ class AuthController extends Controller
             'email.required' => 'O campo de email é obrigatório.',
             'email.email' => 'Por favor, insira um email válido.',
             'email.unique' => 'Este email já está cadastrado.',
-
             'password.required' => 'O campo de senha é obrigatório.',
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
             'password.confirmed' => 'As senhas não coincidem.',
@@ -70,16 +73,10 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Realiza o logout do usuário, removendo a autenticação atual.
         Auth::logout();
-
-        // Invalida a sessão atual para garantir que qualquer dado relacionado à sessão seja descartado.
         $request->session()->invalidate();
-
-        // Regenera o token CSRF para evitar que o usuário utilize o token antigo após o logout.
         $request->session()->regenerateToken();
 
-        // Redireciona o usuário para a página de login com uma mensagem de sucesso.
-        return redirect()->route('login.form')->with('success', 'Logout realizado com sucesso.');
+        return redirect()->route('login.form')->with('error', 'Você não está logado.');
     }
 }
