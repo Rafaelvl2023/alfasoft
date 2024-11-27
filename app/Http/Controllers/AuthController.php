@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate(); // Regenera a sessão
+            $request->session()->regenerate();
             return redirect()->intended('/dashboard')->with('success', 'Login realizado com sucesso!');
         }
 
