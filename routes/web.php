@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContatoController;
 
 Route::get('/', function () {
     return view('contatos');
@@ -25,4 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminContatos', function () {
         return view('adminContatos');
     })->name('adminContatos');
+
+    Route::post('/', [ContatoController::class, 'store'])->name('contatos.store');
 });
