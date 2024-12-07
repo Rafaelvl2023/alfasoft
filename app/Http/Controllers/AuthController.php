@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', 'Login realizado com sucesso!');
+            return redirect()->intended('/formRegistro')->with('success', 'Login realizado com sucesso!');
         }
 
         return back()->withErrors([
