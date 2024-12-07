@@ -10,8 +10,11 @@ class ContatoController extends Controller
 {
     public function index()
     {
-        $contatos = Contato::all();
-        return response()->json(['contatos' => $contatos]);
+        // Pega todos os contatos do banco de dados
+        $contatos = Contato::paginate(5);
+
+        // Retorna a view 'adminContatos' com os dados dos contatos
+        return view('adminContatos', compact('contatos'));
     }
 
     public function store(Request $request)

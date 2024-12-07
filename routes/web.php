@@ -27,5 +27,6 @@ Route::middleware('auth')->group(function () {
         return view('adminContatos');
     })->name('adminContatos');
 
+    Route::get('/adminContatos', [ContatoController::class, 'index'])->name('adminContatos');
     Route::post('/', [ContatoController::class, 'store'])->name('contatos.store');
 });
