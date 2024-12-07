@@ -66,17 +66,13 @@ class ContatoController extends Controller
         $contato = Contato::find($id);
     
         if (!$contato) {
-            // Se o contato não for encontrado, você pode redirecionar de volta com uma mensagem de erro
             return redirect()->route('contatos.index')->with('mensagem', 'Contato não encontrado');
         }
     
-        // Exclui o contato
         $contato->delete();
     
-        // Atualiza a lista de contatos após a exclusão
         $contatos = Contato::paginate(5);
-    
-        // Redireciona de volta para a view com os contatos atualizados
+
         return view('adminContatos', compact('contatos'))->with('mensagem', 'Contato deletado com sucesso');
     }    
 }

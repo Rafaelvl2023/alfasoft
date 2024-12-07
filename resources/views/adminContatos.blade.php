@@ -25,7 +25,7 @@
         }
 
         .container {
-            margin-top: 0px;
+            margin-top: 20px;
         }
 
         h1 {
@@ -38,7 +38,7 @@
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 0px;
+            margin-top: 20px;
             overflow: hidden;
         }
 
@@ -107,7 +107,7 @@
         </div>
     </nav>
     
-    <div class="container mt-2">
+    <div class="container mt-4">
         @if (session('mensagem'))
             <div class="alert alert-success">
                 {{ session('mensagem') }}
@@ -134,12 +134,9 @@
                         <td>{{ $contato->email }}</td>
                         <td>
                             <a class="btn btn-warning btn-sm">Editar</a>
-                            <form method="POST" action="{{ route('contatos.destroy', $contato->id) }}" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir?')">Excluir</button>
-                            </form>
-                            
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $contato->id }}">
+                                Excluir
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -152,6 +149,33 @@
             </ul>
         </div>
     </div>
+
+    @foreach ($contatos as $contato)
+        <div class="modal fade" id="deleteModal{{ $contato->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Excluir Contato</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Você tem certeza de que deseja excluir o contato de <strong>{{ $contato->nome }}</strong>?</p>
+                        <p>Essa ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <form method="POST" action="{{ route('contatos.destroy', $contato->id) }}" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
