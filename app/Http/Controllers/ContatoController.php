@@ -10,11 +10,10 @@ class ContatoController extends Controller
 {
     public function index()
     {
-        // Pega todos os contatos do banco de dados
         $contatos = Contato::paginate(5);
+        $quantidadeCadastros = Contato::count();
 
-        // Retorna a view 'adminContatos' com os dados dos contatos
-        return view('adminContatos', compact('contatos'));
+        return view('adminContatos', compact('contatos', 'quantidadeCadastros'));
     }
 
     public function store(Request $request)
@@ -30,11 +29,10 @@ class ContatoController extends Controller
         return redirect()->route('formRegistro')->with('status', 'Contato cadastrado com sucesso!');
     }
 
-
     public function edit($id)
     {
         $contato = Contato::findOrFail($id);
-        return view('contatos.edit', compact('contato')); 
+        return view('contatos.edit', compact('contato'));
     }
 
     public function update(Request $request, $id)
@@ -73,7 +71,6 @@ class ContatoController extends Controller
 
         $contato->delete();
 
-        // Redireciona para a rota adminContatos após a exclusão do contato
         return redirect()->route('adminContatos')->with('mensagem', 'Contato deletado com sucesso');
     }
 }
