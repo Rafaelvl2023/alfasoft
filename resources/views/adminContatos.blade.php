@@ -26,10 +26,6 @@
             color: #ffffff !important;
         }
 
-        .container {
-            margin-top: 20px;
-        }
-
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -95,6 +91,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin: 20px 0;
         }
+
+        .button {
+            background: linear-gradient(to bottom, #a0c4ff, #6a9bff, #3e75ff);
+        }
+
+        .buttonSair {
+            background: linear-gradient(to bottom, #ff7f7f, #ff4c4c, #ff0000);
+        }
     </style>
 </head>
 
@@ -114,8 +118,7 @@
                 </ul>
                 <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                     @csrf
-                    <button type="submit" class="btn btn-danger btn-sm ml-3"
-                        onclick="return confirm('Você deseja sair?')">
+                    <button type="submit" class="buttonSair btn btn-danger btn-sm ml-3">
                         Sair
                     </button>
                 </form>

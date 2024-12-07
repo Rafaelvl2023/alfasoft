@@ -9,6 +9,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
+            background: url('https://images.unsplash.com/photo-1619252584172-a83a949b6efd?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8fHw%3D')no-repeat center center fixed;
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
         }
@@ -82,6 +83,14 @@
             background-color: #f1f1f1;
             color: #007bff;
         }
+
+        .button {
+            background: linear-gradient(to bottom, #a0c4ff, #6a9bff, #3e75ff);
+        }
+
+        .buttonSair {
+            background: linear-gradient(to bottom, #ff7f7f, #ff4c4c, #ff0000);
+        }
     </style>
 </head>
 
@@ -101,49 +110,46 @@
                 </ul>
                 <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                     @csrf
-                    <button type="submit" class="btn btn-danger btn-sm ml-3" onclick="return confirm('Você deseja sair?')">
+                    <button type="submit" class="buttonSair btn btn-danger btn-sm ml-3">
                         Sair
                     </button>
                 </form>
             </div>
         </div>
     </nav>
-
-    <div class="container col-md-4 mt-5 border border-dark rounded">
-        <h3 class="text-center mb-4">Cadastrar novo contacto</h3>
+    <div class="container col-md-4 mt-5 border border-dark rounded" style="background: url('https://wallpapers.com/images/hd/white-hd-5760-x-3840-background-xfkbx1irwnhb275r.jpg') no-repeat center center fixed; background-size: cover; padding: 20px;">
+        <h4 class="text-center mt-4 mb-4">Cadastrar novo contacto</h4>
         <form action="{{ route('contatos.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control @error('nome') is-invalid @enderror" id="nome"
-                    name="nome" value="{{ old('nome') }}" required>
+                <input type="text" class="form-control @error('nome') is-invalid @enderror" id="nome" name="nome" value="{{ old('nome') }}" required>
             </div>
             <div class="form-group">
-                <label for="contato">Contacto</label>
-                <input type="text" class="form-control @error('contato') is-invalid @enderror" id="contato"
-                    name="contato" value="{{ old('contato') }}" required>
-                <small class="form-text text-muted">Formato: XXXXXXXXX</small>
+                <label for="contato">Contato</label>
+                <input type="text" class="form-control @error('contato') is-invalid @enderror" id="contato" name="contato" value="{{ old('contato') }}" required>
+                <small class="form-text text-muted">Formato: XXXXX-XXXX</small>
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                    name="email" value="{{ old('email') }}" required>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block mb-3">Cadastrar Contacto</button>
+            <button type="submit" class="button btn btn-primary btn-block mb-4">Cadastrar Contato</button>
         </form>
+        
 
-        @if(session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertMessage">
-            {{ session('status') }}
-        </div>
+        @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertMessage">
+                {{ session('status') }}
+            </div>
         @elseif($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertMessage">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertMessage">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -151,7 +157,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <script>
-        @if(session('status'))
+        @if (session('status'))
             setTimeout(function() {
                 $('#alertMessage').fadeOut('slow');
             }, 5000);
