@@ -29,4 +29,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/adminContatos', [ContatoController::class, 'index'])->name('adminContatos');
     Route::post('/', [ContatoController::class, 'store'])->name('contatos.store');
+    Route::delete('/{id}', [ContatoController::class, 'destroy'])->name('contatos.destroy');
+
 });

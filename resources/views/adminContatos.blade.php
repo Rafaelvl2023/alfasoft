@@ -44,7 +44,6 @@
 
         table th {
             background: linear-gradient(to bottom, #a0c4ff, #6a9bff, #3e75ff);
-
             color: white;
             text-align: center;
             font-weight: bold;
@@ -107,7 +106,14 @@
             </div>
         </div>
     </nav>
+    
     <div class="container mt-2">
+        @if (session('mensagem'))
+            <div class="alert alert-success">
+                {{ session('mensagem') }}
+            </div>
+        @endif
+
         <h5>Lista de Contatos</h5>
         <table class="table table-striped table-bordered">
             <thead>
@@ -127,23 +133,26 @@
                         <td>{{ $contato->contato }}</td>
                         <td>{{ $contato->email }}</td>
                         <td>
-                            <a  class="btn btn-warning btn-sm">Editar</a>
-                            <form method="POST" style="display:inline;">
+                            <a class="btn btn-warning btn-sm">Editar</a>
+                            <form method="POST" action="{{ route('contatos.destroy', $contato->id) }}" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir?')">Excluir</button>
                             </form>
+                            
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
         <div class="d-flex justify-content-center">
             <ul class="pagination">
                 {{ $contatos->links('vendor.pagination.bootstrap-4') }}
             </ul>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
