@@ -132,7 +132,10 @@
                         <td>{{ $contato->contato }}</td>
                         <td>{{ $contato->email }}</td>
                         <td>
-                            <a class="btn btn-warning btn-sm">Editar</a>
+                            <!-- Botão para abrir o modal de edição -->
+                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $contato->id }}">
+                                Editar
+                            </button>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $contato->id }}">
                                 Excluir
                             </button>
@@ -147,6 +150,46 @@
             </ul>
         </div>
     </div>
+
+    <!-- Modal de edição -->
+    @foreach ($contatos as $contato)
+        <div class="modal fade" id="editModal{{ $contato->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $contato->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel{{ $contato->id }}">Editar Contato</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('contatos.update', $contato->id) }}">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{ $contato->nome }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contato">Contato</label>
+                                <input type="text" class="form-control" id="contato" name="contato" value="{{ $contato->contato }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $contato->email }}" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    <!-- Modal de exclusão -->
     @foreach ($contatos as $contato)
         <div class="modal fade" id="deleteModal{{ $contato->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -173,6 +216,7 @@
             </div>
         </div>
     @endforeach
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

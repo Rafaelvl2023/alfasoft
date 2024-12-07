@@ -31,23 +31,25 @@ class ContatoController extends Controller
     }
 
 
+    public function edit($id)
+    {
+        $contato = Contato::findOrFail($id);
+        return view('contatos.edit', compact('contato')); 
+    }
+
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), Contato::$regras);
+        $contato = Contato::findOrFail($id);
 
-        if ($validator->fails()) {
-            return response()->json(['erros' => $validator->errors()], 422);
-        }
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'contato' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
 
-        $contato = Contato::find($id);
+        $contato->update($validated);
 
-        if (!$contato) {
-            return response()->json(['mensagem' => 'Contato não encontrado'], 404);
-        }
-
-        $contato->update($request->all());
-
-        return response()->json(['contato' => $contato]);
+        return redirect()->route('adminContatos')->with('mensagem', 'Contato atualizado com sucesso!');
     }
 
     public function show($id)
@@ -62,17 +64,16 @@ class ContatoController extends Controller
     }
 
     public function destroy($id)
-{
-    $contato = Contato::find($id);
+    {
+        $contato = Contato::find($id);
 
-    if (!$contato) {
-        return redirect()->route('contatos.index')->with('mensagem', 'Contato não encontrado');
+        if (!$contato) {
+            return redirect()->route('contatos.index')->with('mensagem', 'Contato não encontrado');
+        }
+
+        $contato->delete();
+
+        // Redireciona para a rota adminContatos após a exclusão do contato
+        return redirect()->route('adminContatos')->with('mensagem', 'Contato deletado com sucesso');
     }
-
-    $contato->delete();
-
-    // Redireciona para a rota adminContatos após a exclusão do contato
-    return redirect()->route('adminContatos')->with('mensagem', 'Contato deletado com sucesso');
-}
-
 }

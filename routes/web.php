@@ -30,5 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminContatos', [ContatoController::class, 'index'])->name('adminContatos');
     Route::post('/', [ContatoController::class, 'store'])->name('contatos.store');
     Route::delete('/{id}', [ContatoController::class, 'destroy'])->name('contatos.destroy');
-
+    Route::get('/{id}/edit', [ContatoController::class, 'edit'])->name('contatos.edit');
+    Route::put('/{id}', [ContatoController::class, 'update'])->name('contatos.update');
 });
