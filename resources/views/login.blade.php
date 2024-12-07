@@ -15,7 +15,7 @@
         }
 
         body {
-            background-image: url(https://img.freepik.com/fotos-gratis/renderizacao-3d-de-fundo-de-textura-hexagonal_23-2150796421.jpg);
+            background-image: url(https://viagemeturismo.abril.com.br/wp-content/uploads/2017/01/belem-tower-2809818_1920.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
@@ -35,8 +35,9 @@
             width: 400px;
         }
 
-        h1 {
+        h3 {
             text-align: center;
+            margin-top: 10px;
             margin-bottom: 20px;
             color: #0f3540;
         }
@@ -159,13 +160,25 @@
             padding: 10px;
             display: none;
         }
+
+        .logo {
+            text-align: center;
+        }
+
+        .contatos {
+            margin-top: 10px;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="conteiner">
         <div class="card">
-            <h1>Login</h1>
+            <div class="logo">
+                <img src="https://www.alfasoft.pt/assets/images/logo.png" alt="">
+            </div>
+            <h3>Entrar</h3>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="label-float">
@@ -198,6 +211,9 @@
                 </div>
             </form>
             <p>Não tem uma conta? <a href="{{ route('register.form') }}">Cadastre-se</a></p>
+            <div class="contatos">
+                <p>Contatos Cadastrados <a href="{{ route('contatos') }}">Voltar</a></p>
+            </div>
         </div>
     </div>
 

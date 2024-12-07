@@ -11,7 +11,7 @@
         @csrf
         <button type="submit">Logout</button>
     </form>
-    <p>Tela Contatos Cadastrados <a href="{{ route('adminContatos') }}">Clique aqui</a></p>
+    <p>Voltar tela <a href="{{ route('adminContatos') }}">Contatos</a></p>
 
     <h1>Formulário de Registro</h1>
 </body>

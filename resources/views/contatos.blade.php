@@ -8,5 +8,6 @@
 </head>
 <body>
     <p>Para poder registrar e editar contatos faça login <a href="{{ route('login') }}">tela login</a></p>
+    <h1>Contatos Cadastrados</h1>
 </body>
 </html>
