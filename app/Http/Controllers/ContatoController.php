@@ -10,7 +10,7 @@ class ContatoController extends Controller
 {
     public function index()
     {
-        $contatos = Contato::paginate(5);
+        $contatos = Contato::paginate(8);
         $quantidadeCadastros = Contato::count();
 
         return view('adminContatos', compact('contatos', 'quantidadeCadastros'));
