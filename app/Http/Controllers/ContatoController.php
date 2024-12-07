@@ -24,8 +24,9 @@ class ContatoController extends Controller
 
         $contato = Contato::create($request->all());
 
-        return redirect()->route('formRegistro')->with('success', 'Contato cadastrado com sucesso!');
+        return redirect()->route('formRegistro')->with('status', 'Contato cadastrado com sucesso!');
     }
+
 
     public function update(Request $request, $id)
     {
