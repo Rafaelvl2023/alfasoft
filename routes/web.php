@@ -3,10 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\InformacoesPublicasController;
 
-Route::get('/', function () {
-    return view('contatos');
-})->name('contatos');
+Route::get('/', [InformacoesPublicasController::class, 'index'])->name('contatos');
 
 Route::get('/login', [AuthController::class, 'index'])->name('login.form');
 

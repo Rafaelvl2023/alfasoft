@@ -116,41 +116,28 @@
             </div>
         @endif
         <h5>Lista de Contatos</h5>
-        {{-- <h6 class="quantidade">Atualmente você está com {{ $quantidadeCadastros }} contatos cadastrados</h6> --}}
+        <h6 class="quantidade">Atualmente você está com {{ $quantidadeCadastros }} contatos cadastrados</h6>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Contato</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($contatos as $contato)
+                @foreach ($contatos as $contato)
                     <tr>
-                        <td>{{ $contato->id }}</td>
                         <td>{{ $contato->nome }}</td>
                         <td>{{ $contato->contato }}</td>
                         <td>{{ $contato->email }}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                data-target="#editModal{{ $contato->id }}">
-                                Editar
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                data-target="#deleteModal{{ $contato->id }}">
-                                Excluir
-                            </button>
-                        </td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
         </table>
         <div class="d-flex justify-content-center">
             <ul class="pagination">
-                {{-- {{ $contatos->links('vendor.pagination.bootstrap-4') }} --}}
+                {{ $contatos->links('vendor.pagination.bootstrap-4') }}
             </ul>
         </div>
     </div>
