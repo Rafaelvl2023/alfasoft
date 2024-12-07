@@ -106,10 +106,9 @@
             </div>
         </div>
     </nav>
-    
     <div class="container mt-4">
         @if (session('mensagem'))
-            <div class="alert alert-success">
+            <div id="alertMessage" class="alert alert-success">
                 {{ session('mensagem') }}
             </div>
         @endif
@@ -142,14 +141,12 @@
                 @endforeach
             </tbody>
         </table>
-
         <div class="d-flex justify-content-center">
             <ul class="pagination">
                 {{ $contatos->links('vendor.pagination.bootstrap-4') }}
             </ul>
         </div>
     </div>
-
     @foreach ($contatos as $contato)
         <div class="modal fade" id="deleteModal{{ $contato->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -176,15 +173,15 @@
             </div>
         </div>
     @endforeach
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script>
-        @if(session('status'))
+        @if(session('mensagem'))
             setTimeout(function() {
                 $('#alertMessage').fadeOut('slow');
             }, 5000);
         @endif
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
