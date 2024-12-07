@@ -62,17 +62,17 @@ class ContatoController extends Controller
     }
 
     public function destroy($id)
-    {
-        $contato = Contato::find($id);
-    
-        if (!$contato) {
-            return redirect()->route('contatos.index')->with('mensagem', 'Contato não encontrado');
-        }
-    
-        $contato->delete();
-    
-        $contatos = Contato::paginate(5);
+{
+    $contato = Contato::find($id);
 
-        return view('adminContatos', compact('contatos'))->with('mensagem', 'Contato deletado com sucesso');
-    }    
+    if (!$contato) {
+        return redirect()->route('contatos.index')->with('mensagem', 'Contato não encontrado');
+    }
+
+    $contato->delete();
+
+    // Redireciona para a rota adminContatos após a exclusão do contato
+    return redirect()->route('adminContatos')->with('mensagem', 'Contato deletado com sucesso');
+}
+
 }
