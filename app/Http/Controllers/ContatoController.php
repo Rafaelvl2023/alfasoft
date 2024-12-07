@@ -19,12 +19,12 @@ class ContatoController extends Controller
         $validator = Validator::make($request->all(), Contato::$regras);
 
         if ($validator->fails()) {
-            return response()->json(['erros' => $validator->errors()], 422);
+            return back()->withErrors($validator)->withInput();
         }
 
         $contato = Contato::create($request->all());
 
-        return response()->json(['contato' => $contato], 201);
+        return redirect()->route('formRegistro')->with('success', 'Contato cadastrado com sucesso!');
     }
 
     public function update(Request $request, $id)
@@ -46,16 +46,16 @@ class ContatoController extends Controller
         return response()->json(['contato' => $contato]);
     }
 
-     public function show($id)
-     {
-         $contato = Contato::find($id);
+    public function show($id)
+    {
+        $contato = Contato::find($id);
 
-         if (!$contato) {
-             return response()->json(['mensagem' => 'Contato não encontrado'], 404);
-         }
+        if (!$contato) {
+            return response()->json(['mensagem' => 'Contato não encontrado'], 404);
+        }
 
-         return response()->json(['contato' => $contato]);
-     }
+        return response()->json(['contato' => $contato]);
+    }
 
     public function destroy($id)
     {

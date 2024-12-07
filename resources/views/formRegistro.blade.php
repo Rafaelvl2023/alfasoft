@@ -29,17 +29,18 @@
 
     <div class="container col-md-4 mt-5 border border-dark rounded">
         <h3 class="text-center mb-4">Cadastrar novo contato</h3>
-        <form method="POST">
+        <form action="{{ route('contatos.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Nome</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" value="{{ old('name') }}" required>
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control @error('nome') is-invalid @enderror" id="nome"
+                    name="nome" value="{{ old('nome') }}" required>
             </div>
             <div class="form-group">
-                <label for="contact">Contato</label>
-                <input type="text" class="form-control @error('contact') is-invalid @enderror" id="contact"
-                    name="contact" value="{{ old('contact') }}" pattern="\d{9}" required>
+                <label for="contato">Contato</label>
+                <input type="text" class="form-control @error('contato') is-invalid @enderror" id="contato"
+                    name="contato" value="{{ old('contato') }}" required>
+                <small class="form-text text-muted">Formato: XXXXXXXXX</small>
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
@@ -53,23 +54,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-    <script>
-        document.getElementById('contact').addEventListener('input', function(e) {
-            let value = e.target.value;
-            value = value.replace(/\D/g, '');
-            if (value.length > 11) {
-                value = value.substring(0, 11);
-            }
-            if (value.length > 6) {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-            } else if (value.length > 2) {
-                value = value.replace(/(\d{2})(\d{1,5})/, '($1) $2');
-            }
-            e.target.value = value;
-        });
-    </script>
 </body>
 
 </html>
-
