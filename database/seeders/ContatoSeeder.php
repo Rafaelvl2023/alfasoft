@@ -12,10 +12,10 @@ class ContatoSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 20) as $index) {
+        foreach (range(1, 30) as $index) {
             Contato::create([
                 'nome' => $faker->name,
-                'contato' => $faker->numerify('#########'), 
+                'contato' => $faker->numerify('#########'),
                 'email' => $faker->unique()->safeEmail,
             ]);
         }

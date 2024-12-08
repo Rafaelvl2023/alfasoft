@@ -32,20 +32,25 @@ composer install
 Instale as dependências do npm (para o frontend):
 npm install
 
-### 4. Execute as Migrations
+### 4. Configure o Banco de Dados
+
+Crie o banco de dados no xampp
+rafaelteixeira-lv
+
+### 5. Execute as Migrations
 
 Execute as migrations para criar as tabelas no banco de dados:
 
 php artisan migrate
 Explicação: O sistema já possui todas as migrations necessárias, então este comando criará as tabelas no banco de dados.
 
-### 5. Execute os Seeders
+### 6. Execute os Seeders
 
 Execute as seeders para popular o banco com dados de contatos:
 
 php artisan db:seed --class=ContatoSeeder
 
-### 5. Servidor para rodar a aplicação
+### 7. Servidor para rodar a aplicação
 
 php artisan serve
 O servidor será iniciado na URL http://127.0.0.1:8000.
