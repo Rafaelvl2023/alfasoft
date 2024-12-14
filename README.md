@@ -38,9 +38,28 @@ Instale as dependências do npm (para o frontend):
 
 ### 4. Configure o Banco de Dados
 
-Crie o banco de dados no xampp
+Criar .env
 
-- rafaelteixeira-lv
+- cp .env.example .env
+
+Criar chave da aplciacao
+
+- php artisan key:generate
+
+### 4.1 Criar o Banco de Dados no XAMPP
+
+Abra o phpMyAdmin no XAMPP, acessando http://localhost/phpmyadmin.
+
+- Crie um novo banco de dados com o nome alfasoft
+
+### 4.2 Configurar as Credenciais do Banco de Dados .env
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=alfasoft
+DB_USERNAME=root
+DB_PASSWORD=
 
 ### 5. Execute as Migrations
 
