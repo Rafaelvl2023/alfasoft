@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Contatos</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: url('https://images.unsplash.com/photo-1619252584172-a83a949b6efd?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8fHw%3D')no-repeat center center fixed;
+            background: url('https://images.unsplash.com/photo-1619252584172-a83a949b6efd?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8fHw%3D') no-repeat center center fixed;
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
         }
@@ -18,17 +17,8 @@
             background: linear-gradient(to bottom, #d3d3d3, #999999, #c5c5c5);
         }
 
-        .navbar-brand img {
-            height: 0px;
-        }
-
-        .navbar-nav .nav-link {
-            color: #ffffff !important;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        h5 {
+            font-size: 1.8rem;
             color: #343a40;
         }
 
@@ -37,7 +27,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
-            overflow: hidden;
         }
 
         table th {
@@ -49,35 +38,10 @@
 
         table td {
             text-align: center;
-            vertical-align: middle;
-        }
-
-        table tbody tr:hover {
-            background-color: #f1f1f1;
-            cursor: pointer;
         }
 
         .btn {
             font-size: 0.9rem;
-        }
-
-        .pagination {
-            margin-top: 20px;
-        }
-
-        .pagination .page-link {
-            color: #007bff;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: white;
-        }
-
-        .pagination .page-link:hover {
-            background-color: #f1f1f1;
-            color: #007bff;
         }
 
         .quantidade {
@@ -90,10 +54,6 @@
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin: 20px 0;
-        }
-
-        .button {
-            background: linear-gradient(to bottom, #a0c4ff, #6a9bff, #3e75ff);
         }
 
         .buttonSair {
@@ -125,55 +85,32 @@
             </div>
         </div>
     </nav>
+
     <div class="container mt-4">
-        @if (session('mensagem'))
-            <div id="alertMessage" class="alert alert-success">
-                {{ session('mensagem') }}
+
+        <div class="container mt-5" style="background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h4 class="text-center mb-4" style="font-family: 'Arial', sans-serif; color: #333;">Informações do Usuário</h4>
+
+            <div class="card" style="border: 1px solid #ddd; border-radius: 8px;">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1.2rem; font-weight: bold; color: #333;">Nome: {{ $contato->nome }}</h5>
+                    <p class="card-text" style="font-size: 1rem; color: #555;"><strong>Contato:</strong> {{ $contato->contato }}</p>
+                    <p class="card-text" style="font-size: 1rem; color: #555;"><strong>Email:</strong> {{ $contato->email }}</p>
+                </div>
             </div>
-        @endif
-        <h5>Lista de Contatos</h5>
-        <h6 class="quantidade">Atualmente você está com {{ $quantidadeCadastros }} contatos cadastrados</h6>
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Contato</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($contatos as $contato)
-                    <tr>
-                        <td>{{ $contato->id }}</td>
-                        <td>{{ $contato->nome }}</td>
-                        <td>{{ $contato->contato }}</td>
-                        <td>{{ $contato->email }}</td>
-                        <td>
-                            <a href="{{ route('informacoesContato', $contato->id) }}" class="btn btn-info btn-sm mt-2">Ver Informações</a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-center">
-            <ul class="pagination">
-                {{ $contatos->links('vendor.pagination.bootstrap-4') }}
-            </ul>
+
+            <div class="mt-4 d-flex justify-content-end">
+                <a href="{{ route('editar', $contato->id) }}" class="btn btn-primary btn-sm ml-2">Editar</a>
+                <a href="{{ route('excluir', $contato->id) }}" class="btn btn-danger btn-sm ml-2">Excluir</a>
+                <a href="{{ route('adminContatos') }}" class="btn btn-secondary btn-sm ml-2">Voltar</a>
+            </div>
         </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script>
-        @if (session('mensagem'))
-            setTimeout(function() {
-                $('#alertMessage').fadeOut('slow');
-            }, 5000);
-        @endif
-    </script>
+
 </body>
 
 </html>

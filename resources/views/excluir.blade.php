@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Formulário de Cadastro de Contato</title>
+    <title>Contatos</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -26,13 +26,9 @@
             color: #ffffff !important;
         }
 
-        .container {
-            margin-top: 0px;
-        }
-
         h1 {
             font-size: 2.5rem;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: #343a40;
         }
 
@@ -45,7 +41,7 @@
         }
 
         table th {
-            background: linear-gradient(to bottom, #007bff, #7079ff);
+            background: linear-gradient(to bottom, #a0c4ff, #6a9bff, #3e75ff);
             color: white;
             text-align: center;
             font-weight: bold;
@@ -84,6 +80,18 @@
             color: #007bff;
         }
 
+        .quantidade {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(to bottom, #ff7f50, #ff4500, #ff7f50);
+            padding: 5px 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+
         .button {
             background: linear-gradient(to bottom, #a0c4ff, #6a9bff, #3e75ff);
         }
@@ -95,7 +103,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <img src="https://www.alfasoft.pt/assets/images/logo.png" alt="" class="navbar-brand">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -105,7 +113,7 @@
             <div class="collapse navbar-collapse ml-auto" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('adminContatos') }}">Contatos</a>
+                        <a class="nav-link" href="{{ route('formRegistro') }}">Formulário</a>
                     </li>
                 </ul>
                 <form method="POST" action="{{ route('logout') }}" style="display:inline;">
@@ -117,52 +125,30 @@
             </div>
         </div>
     </nav>
-    <div class="container col-md-4 mt-5 border border-dark rounded" style="background: url('https://wallpapers.com/images/hd/white-hd-5760-x-3840-background-xfkbx1irwnhb275r.jpg') no-repeat center center fixed; background-size: cover; padding: 20px;">
-        <h4 class="text-center mt-4 mb-4">Cadastrar novo contato</h4>
-        <form action="{{ route('contatos.store') }}" method="POST">
+    <div class="container mt-5" style="background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <h4 class="text-center mb-4" style="font-family: 'Arial', sans-serif; color: #333;">Excluir Usuário</h4>
+
+        <p style="font-size: 1.1rem; color: #555;">Tem certeza de que deseja excluir o usuário <strong>{{ $contato->nome }}</strong>?</p>
+        <p style="font-size: 1rem; color: #555;">Email: <strong>{{ $contato->email }}</strong></p>
+        <p style="font-size: 1rem; color: #555;">Telefone: <strong>{{ $contato->contato }}</strong></p>
+        <p style="font-style: italic; color: #d9534f; font-size: 1.1rem;">Essa ação não pode ser desfeita.</p>
+
+        <form method="POST" action="{{ route('contatos.destroy', $contato->id) }}">
             @csrf
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control @error('nome') is-invalid @enderror" id="nome" name="nome" value="{{ old('nome') }}" required>
+            @method('DELETE')
+
+            <div class="mt-4 d-flex justify-content-end">
+                <button type="submit" class="btn btn-danger btn-sm ml-2">Excluir</button>
+                <a href="{{ route('adminContatos') }}" class="btn btn-secondary btn-sm ml-2">Cancelar</a>
             </div>
-            <div class="form-group">
-                <label for="contato">Contato</label>
-                <input type="text" class="form-control @error('contato') is-invalid @enderror" id="contato" name="contato" value="{{ old('contato') }}" required>
-                <small class="form-text text-muted">Formato: XXXXX-XXXX</small>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
-            </div>
-            <button type="submit" class="button btn btn-primary btn-block mb-4">Cadastrar Contato</button>
         </form>
-
-
-        @if (session('status'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertMessage">
-                {{ session('status') }}
-            </div>
-        @elseif($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertMessage">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
     <script>
-        @if (session('status'))
-            setTimeout(function() {
-                $('#alertMessage').fadeOut('slow');
-            }, 5000);
-        @endif
-    </script>
-</body>
+</body >
 
-</html>
+</html >
