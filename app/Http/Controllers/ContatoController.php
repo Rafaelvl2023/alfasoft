@@ -16,6 +16,18 @@ class ContatoController extends Controller
         return view('adminContatos', compact('contatos', 'quantidadeCadastros'));
     }
 
+    public function showInformacoes($id)
+    {
+        $contato = Contato::findOrFail($id);
+        return view('informacoes', compact('contato'));
+    }
+
+    public function showExcluir($id)
+    {
+        $contato = Contato::findOrFail($id);
+        return view('excluir', compact('contato'));
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), Contato::$regras);
@@ -32,23 +44,24 @@ class ContatoController extends Controller
     public function edit($id)
     {
         $contato = Contato::findOrFail($id);
-        return view('contatos.edit', compact('contato'));
+        return view('editar', compact('contato'));
     }
 
     public function update(Request $request, $id)
     {
         $contato = Contato::findOrFail($id);
 
-        $validated = $request->validate([
+        $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
-            'contato' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'contato' => 'required|numeric|digits:9',
+            'email' => 'required|email|unique:contatos,email,' . $contato->id,
         ]);
 
-        $contato->update($validated);
+        $contato->update($validatedData);
 
         return redirect()->route('adminContatos')->with('mensagem', 'Contato atualizado com sucesso!');
     }
+
 
     public function show($id)
     {
