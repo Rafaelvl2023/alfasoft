@@ -26,9 +26,12 @@ Route::middleware('auth')->group(function () {
         return view('adminContatos');
     })->name('adminContatos');
 
+    Route::get('/informacoes/{id}', [ContatoController::class, 'showInformacoes'])->name('informacoesContato');
+    Route::get('/excluir/{id}', [ContatoController::class, 'showExcluir'])->name('excluir');
+
     Route::get('/adminContatos', [ContatoController::class, 'index'])->name('adminContatos');
     Route::post('/', [ContatoController::class, 'store'])->name('contatos.store');
     Route::delete('/{id}', [ContatoController::class, 'destroy'])->name('contatos.destroy');
-    Route::get('/{id}/edit', [ContatoController::class, 'edit'])->name('contatos.edit');
+    Route::get('/{id}/edit', [ContatoController::class, 'edit'])->name('editar');
     Route::put('/{id}', [ContatoController::class, 'update'])->name('contatos.update');
 });
