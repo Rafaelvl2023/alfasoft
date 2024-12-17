@@ -61,21 +61,13 @@ DB_DATABASE=alfasoft
 DB_USERNAME=root
 DB_PASSWORD=
 
-### 5. Execute as Migrations
+### 5. Execute as Migrations e Seeders
 
-Execute as migrations para criar as tabelas no banco de dados:
+Execute as migrations para criar as tabelas e os seeders para popular o banco de dados:
 
-- php artisan migrate
+- php artisan migrate --seed
 
-Explicação: O sistema já possui todas as migrations necessárias, então este comando criará as tabelas no banco de dados.
-
-### 6. Execute os Seeders
-
-Execute as seeders para popular o banco com dados de contatos:
-
-- php artisan db:seed --class=ContatoSeeder
-
-### 7. Servidor para rodar a aplicação
+### 6. Servidor para rodar a aplicação
 
 - php artisan serve
 
